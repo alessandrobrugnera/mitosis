@@ -69,7 +69,8 @@ function Cell(x, y, r, c, g){
 		textSize(13);
 		fill(255);
 		stroke(0);
-		text(this.generation + "\n" + Math.round(this.r), this.pos.x, this.pos.y);
+		let insideTxt = "GEN " + this.generation + "\nR " + Math.round(this.r);
+		text(insideTxt, this.pos.x - textWidth(insideTxt) / 4, this.pos.y); // 4 because there's a \n not counted in textWidth
 	}
 
 }

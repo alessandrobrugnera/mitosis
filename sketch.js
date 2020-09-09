@@ -1,6 +1,6 @@
 let cells = [];
 let maxSimulationFrameRate = 120;
-let tools = [new NoTool(), new NewCellTool(), new DeathTool(), new Thanos()]
+let tools = [new NoTool(), new NewCellTool(), new DeathTool(), new Thanos(), new Spreader(), new Magnet(), new GrabberTool()]
 let selectedTool = 0
 let sexReproduction = true;
 let asexReproduction = true;
@@ -25,7 +25,7 @@ function draw() {
   textSize(15);
   fill(255, 0, 0, 150);
   stroke(0, 0, 255, 150);
-  text("Use your mouse wheel to select the tool.\nThen click to use it.", 5, 30);
+  text("Use your mouse wheel to select the tool.\nThen click (or keep pressed) to use it.", 5, 30);
   fill(255);
   stroke(0, 255, 0);
   textSize(15);
@@ -78,6 +78,7 @@ function runSimulation() {
 }
 
 function mouseWheel(event) {
+    mouseReleased();
     if(event.delta < 0) {
         selectedTool = max(0, selectedTool - 1);
     } else if (event.delta > 0) {
@@ -86,5 +87,20 @@ function mouseWheel(event) {
 }
 
 function mouseClicked() {
-    tools[selectedTool].onClick(createVector(mouseX, mouseY));
+    if (typeof tools[selectedTool].onClick === 'function') {
+        tools[selectedTool].onClick(createVector(mouseX, mouseY));
+    }
 }
+
+function mousePressed() {
+    if (typeof tools[selectedTool].onPress === 'function') {
+        tools[selectedTool].onPress();
+    }
+}
+
+function mouseReleased() {
+    if (typeof tools[selectedTool].onRelease === 'function') {
+        tools[selectedTool].onRelease();
+    }
+}
+
