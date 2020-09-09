@@ -30,6 +30,21 @@ function Cell(x, y, r, c, g){
 			this.generation + 1);
 	}
 
+	this.combine = function (anotherCell) {
+		return new Cell(
+			(this.pos.x + anotherCell.pos.x) / 2,
+			(this.pos.y + anotherCell.pos.y) / 2,
+			(this.r + anotherCell.r) / (2 * Math.sqrt(2)),
+			color(
+				constrain((this.color._getRed() + anotherCell.color._getRed()) / 2 + (Math.random() * 20 - 10), 0, 255),
+				constrain((this.color._getGreen() + anotherCell.color._getGreen()) / 2 + (Math.random() * 20 - 10), 0, 255),
+				constrain((this.color._getBlue() + anotherCell.color._getBlue()) / 2 + (Math.random() * 20 - 10), 0, 255),
+				100
+			),
+			Math.round((this.generation + anotherCell.generation) / 2) + 1
+		)
+	}
+
 	this.move = function(){
 		this.pos.x = (this.pos.x + this.speed.x) % width;
 		this.pos.y = (this.pos.y + this.speed.y) % height;
@@ -50,11 +65,11 @@ function Cell(x, y, r, c, g){
 	this.show = function(){
 		fill(this.color);
 		stroke(255);
-		circle(this.pos.x, this.pos.y, this.r);
+		circle(this.pos.x, this.pos.y, this.r * 2);
 		textSize(13);
 		fill(255);
 		stroke(0);
-		text(this.generation, this.pos.x, this.pos.y);
+		text(this.generation + "\n" + Math.round(this.r), this.pos.x, this.pos.y);
 	}
 
 }
