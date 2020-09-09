@@ -1,46 +1,60 @@
-function cell(x, y, r, c){
+function Cell(x, y, r, c, g){
 
-	this.x = x || random(50, width - 50); 
-	this.y = y || random(50, height - 50);
-	this.r = r || random(10, 20);
-	this.color = c || color(255 - random(0,225), 255 - random(0,225), 255 - random(0,225), 100);
-	this.xspeed = random(-1, 1);
-	this.yspeed = random(-1, 1);
+	this.pos = createVector(x ?? random(50, width - 50), y ?? random(50, height - 50));
+	this.r = r ?? random(10, 20);
+	this.color = c ?? color(255 - random(0,225), 255 - random(0,225), 255 - random(0,225), 100);
+	this.speed = createVector(random(-1, 1), random(-1, 1));
 	this.growthFactor = random(0.05, 0.07);
-	this.dieProbability = Math.floor(random(100));
+	this.dieProb = Math.random() * .005;
+	this.generation = g ?? 0;
 
 
-	this.death = function(){
-		return this.dieProbability < 45;
+	this.timeToDie = function(){
+		return this.dieProb > Math.random();
 	}
 
 	this.grow = function(){
 		this.r += this.growthFactor;
 	}
 
-	this.check = function(){
+	this.timeToReproduce = function(){
 		return this.r > 50;
 	}
 
-	this.duplicate = function(){
-		return new cell(this.x - random(20, 40), this.y - random(20, 40), this.r / Math.sqrt(2), this.color);
+	this.generateChild = function(){
+		return new Cell(
+			this.pos.x - random(20, 40),
+			this.pos.y - random(20, 40),
+			this.r / Math.sqrt(2),
+			this.color,
+			this.generation + 1);
 	}
 
-	this.migrate = function(){
-		this.x = (this.x + this.xspeed) % width;
-		this.y = (this.y + this.yspeed) % height;
-		if(this.x < 0){
-			this.x += width;
+	this.move = function(){
+		this.pos.x = (this.pos.x + this.speed.x) % width;
+		this.pos.y = (this.pos.y + this.speed.y) % height;
+		if(this.pos.x < 0){
+			this.pos.x += width;
 		}
-		if(this.y < 0){
-			this.y += height;
+		if(this.pos.y < 0){
+			this.pos.y += height;
+		}
+		if (this.pos.x > width) {
+			this.pos.x -= width;
+		}
+		if (this.pos.y > height) {
+			this.pos.y -= height;
 		}
 	}
 
 	this.show = function(){
 		fill(this.color);
 		stroke(255);
-		ellipse(this.x, this.y, this.r, this.r);	
+		circle(this.pos.x, this.pos.y, this.r);
+		textSize(13);
+		fill(255);
+		stroke(0);
+		text(this.generation, this.pos.x, this.pos.y);
 	}
 
 }

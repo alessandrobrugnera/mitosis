@@ -1,26 +1,66 @@
 let cells = [];
+let maxSimulationFrameRate = 120;
+let tools = [new NoTool(), new NewCellTool(), new DeathTool(), new Thanos()]
+let selectedTool = 0
+
+let simFr = 0;
 
 function setup() {
-  createCanvas(innerWidth - 10, innerHeight - 10);
+  createCanvas(innerWidth - 5, innerHeight - 5);
   for(let i = 0; i < 100; i++){
-    cells.push(new cell());
+    cells.push(new Cell());
   }
+  runSimulation();
 }
 
 function draw() {
   background(0);
   for(let i = 0; i < cells.length; i++){
-      if(cells[i].death()){
-        cells.splice(i, 1);
-      }else{
-        cells[i].grow();
-        if(cells[i].check()){
-            cells.push(cells[i].duplicate());
-            cells.push(cells[i].duplicate());
-            cells.splice(i, 1);
-        }
-        cells[i].migrate();
-        cells[i].show();  
-      }
+      cells[i].show();
   }
+  tools[selectedTool].show(createVector(5, 80));
+  textSize(15);
+  fill(255, 0, 0, 150);
+  stroke(0, 0, 255, 150);
+  text("Use your mouse wheel to select the tool.\nThen click to use it.", 5, 30);
+  fill(255);
+  stroke(0, 255, 0);
+  textSize(15);
+  let frtxt = "Render fr " + Math.round(frameRate()) + " Simulation fr " + Math.round(simFr) + "\nLiving cells: " + cells.length;
+  text(frtxt, width / 2 - textWidth(frtxt) / 2, 20);
+}
+
+function runSimulation() {
+    let execStartAt = millis();
+    for(let i = 0; i < cells.length; i++){
+        if(cells[i].timeToDie()){
+            cells.splice(i, 1);
+        }else{
+            cells[i].grow();
+            if(cells[i].timeToReproduce()){
+                cells.push(cells[i].generateChild());
+                cells.push(cells[i].generateChild());
+                cells.splice(i, 1);
+            }
+            cells[i].move();
+        }
+    }
+    let executionTime = millis() - execStartAt;
+    if (1000 / maxSimulationFrameRate - executionTime <= 0) {
+        console.log("Simulation speed too low! Can't keep up!");
+    }
+    simFr =  (1000 / max(1000 / maxSimulationFrameRate, executionTime));
+    setTimeout(runSimulation, max(1, 1000 / maxSimulationFrameRate - executionTime))
+}
+
+function mouseWheel(event) {
+    if(event.delta < 0) {
+        selectedTool = max(0, selectedTool - 1);
+    } else if (event.delta > 0) {
+        selectedTool = min(tools.length - 1, selectedTool + 1);
+    }
+}
+
+function mouseClicked() {
+    tools[selectedTool].onClick(createVector(mouseX, mouseY));
 }
