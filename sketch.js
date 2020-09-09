@@ -1,15 +1,15 @@
 let cells = [];
 let maxSimulationFrameRate = 120;
-let tools = [new NoTool(), new NewCellTool(), new DeathTool(), new Thanos(), new Spreader(), new Magnet(), new GrabberTool()]
+let tools = [new NoTool(), new NewCellTool(), new DeathTool(), new Thanos(), new Spreader(), new Magnet(), new GrabberTool(), new Freezer(), new Exploder()]
 let selectedTool = 0
 let sexReproduction = true;
 let asexReproduction = true;
 
 let simFr = 0;
-let cellsCap = 1000;
+let cellsCap = 250;
 
 function setup() {
-  createCanvas(innerWidth - 5, innerHeight - 5);
+  canv = createCanvas(innerWidth - 4, innerHeight - 4);
   for(let i = 0; i < 100; i++){
     cells.push(new Cell());
   }
@@ -104,3 +104,12 @@ function mouseReleased() {
     }
 }
 
+function windowResized() {
+    resizeCanvas(innerWidth - 4, innerHeight - 4);
+}
+
+function randomizeColors() {
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].color = color(random(255), random(255), random(255), 100);
+    }
+}
