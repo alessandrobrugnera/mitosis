@@ -165,16 +165,16 @@ class Cell {
         for (let i = 0; i < arr.length; i++) {
             //console.log(cells);
             if (cells[i]) {
-                cells[i].p.x = arr[i].pos.x;
-                cells[i].p.y = arr[i].pos.y;
+                cells[i].pos.x = arr[i].p.x;
+                cells[i].pos.y = arr[i].p.y;
                 cells[i].r = arr[i].r;
-                cells[i].c = arr[i].color;
-                cells[i].g = arr[i].generation;
-                cells[i].s.x = arr[i].speed.x;
-                cells[i].s.y = arr[i].speed.y;
+                cells[i].color = arr[i].c;
+                cells[i].generation = arr[i].g;
+                cells[i].speed.x = arr[i].s.x;
+                cells[i].speed.y = arr[i].s.y;
             } else {
                 //console.log("CALLED");
-                cells[i] = new Cell(arr[i].pos.x, arr[i].pos.y, arr[i].r, arr[i].color, arr[i].generation);
+                cells[i] = new Cell(arr[i].p.x, arr[i].p.y, arr[i].r, arr[i].c, arr[i].g);
             }
         }
         if (cells.length > arr.length) {
