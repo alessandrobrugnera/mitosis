@@ -1,4 +1,4 @@
-let peer = new peerjs.Peer({secure: true, debug: 3});
+let peer = new peerjs.Peer({secure: true, debug: 1});
 const urlParams = new URLSearchParams(window.location.search);
 let conn = undefined;
 
@@ -62,8 +62,6 @@ function setup() {
                     Cell.updateArray(dt.cells, cells);
                     Food.updateArray(dt.foods, foods);
                     selectedTool = dt.selectedTool;
-                } else {
-                    console.warn(dt);
                 }
             });
         });
