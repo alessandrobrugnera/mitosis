@@ -1,8 +1,9 @@
-class Spreader{
-    Spreader(){
+class Spreader {
+    Spreader() {
         this.intervalId = 0;
     }
-    onPress(){
+
+    onPress() {
         this.intervalId = setInterval(() => {
             let pos = createVector(mouseX, mouseY);
             for (let i = 0; i < cells.length; i++) {
@@ -16,9 +17,11 @@ class Spreader{
             }
         }, 100);
     }
-    onRelease(){
+
+    onRelease() {
         clearInterval(this.intervalId);
     }
+
     show(pos) {
         let txt = "Spreader";
         stroke(255);
@@ -31,11 +34,11 @@ class Spreader{
         translate(mouseX, mouseY);
         rotate(millis() / 1000 * 2 * PI);
         triangle(0, 0, 20, -10, 20, 10);
-        rotate(PI/2);
+        rotate(PI / 2);
         triangle(0, 0, 20, -10, 20, 10);
-        rotate(PI/2);
+        rotate(PI / 2);
         triangle(0, 0, 20, -10, 20, 10);
-        rotate(PI/2);
+        rotate(PI / 2);
         triangle(0, 0, 20, -10, 20, 10);
         pop();
         stroke(255);

@@ -1,6 +1,10 @@
 class NoTool {
-    NoTool() {}
-    onClick(pos) {}
+    NoTool() {
+    }
+
+    onClick(pos) {
+    }
+
     show(pos) {
         let txt = "No Tool";
         stroke(255);

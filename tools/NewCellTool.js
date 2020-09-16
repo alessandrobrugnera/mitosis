@@ -1,8 +1,11 @@
-class NewCellTool{
-    NewCellTool(){}
-    onClick(pos){
+class NewCellTool {
+    NewCellTool() {
+    }
+
+    onClick(pos) {
         cells.push(new Cell(pos.x, pos.y));
     };
+
     show(pos) {
         let txt = "Cell Spawner";
         stroke(255);

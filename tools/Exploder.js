@@ -1,17 +1,20 @@
 class Exploder {
-    Exploder(){}
-    onClick(){
-            let pos = createVector(mouseX, mouseY);
-            for (let i = 0; i < cells.length; i++) {
-                if (cells[i].pos.dist(pos) < 250) {
-                    let tmp = pos.copy();
-                    tmp.sub(cells[i].pos);
-                    tmp.mult(-1);
-                    tmp.setMag(50);
-                    cells[i].speed = tmp;
-                }
-            }
+    Exploder() {
     }
+
+    onClick() {
+        let pos = createVector(mouseX, mouseY);
+        for (let i = 0; i < cells.length; i++) {
+            if (cells[i].pos.dist(pos) < 250) {
+                let tmp = pos.copy();
+                tmp.sub(cells[i].pos);
+                tmp.mult(-1);
+                tmp.setMag(50);
+                cells[i].speed = tmp;
+            }
+        }
+    }
+
     show(pos) {
         let txt = "Exploder";
         stroke(255);

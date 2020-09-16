@@ -1,8 +1,9 @@
-class GrabberTool{
-    GrabberTool(){
+class GrabberTool {
+    GrabberTool() {
         this.cellToAttract = undefined;
     }
-    onPress(){
+
+    onPress() {
         let minDist = Infinity;
         let tmpPos = createVector(mouseX, mouseY);
         for (let i = 0; i < cells.length; i++) {
@@ -18,9 +19,11 @@ class GrabberTool{
             }
         }, 100);
     }
-    onRelease(){
+
+    onRelease() {
         clearInterval(this.intervalId);
     }
+
     show(pos) {
         let txt = "Grabber";
         stroke(255);

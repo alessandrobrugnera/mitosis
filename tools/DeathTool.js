@@ -1,5 +1,7 @@
 class DeathTool {
-    DeathTool(){}
+    DeathTool() {
+    }
+
     onClick(pos) {
         for (let i = 0; i < cells.length; i++) {
             if (cells[i].pos.dist(pos) < 75) {
@@ -8,6 +10,7 @@ class DeathTool {
             }
         }
     }
+
     show(pos) {
         let txt = "Cell Deleter";
         stroke(255);
