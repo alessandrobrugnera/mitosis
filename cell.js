@@ -131,19 +131,19 @@ class Cell {
         let toRet = [];
         for (let i = 0; i < arr.length; i++) {
             toRet[i] = {
-                pos: {
-                    x: arr[i].pos.x,
-                    y: arr[i].pos.y
+                p: {
+                    x: Math.round(arr[i].pos.x),
+                    y: Math.round(arr[i].pos.y)
                 },
                 r: arr[i].r,
-                color: arr[i].color.levels,
-                speed: {
-                    x: arr[i].speed.x,
-                    y: arr[i].speed.y
+                c: arr[i].color.levels,
+                s: {
+                    x: Math.round(arr[i].speed.x),
+                    y: Math.round(arr[i].speed.y)
                 },
                 // growthFactor: arr[i].growthFactor,
                 // dieProb: arr[i].dieProb,
-                generation: arr[i].generation,
+                g: arr[i].generation,
                 // brain: arr[i].brain.serialize(),
                 // score: arr[i].score,
                 // fitness: arr[i].fitness
@@ -155,7 +155,7 @@ class Cell {
     static unserializeArray(arr) {
         let toRet = [];
         for (let i = 0; i < arr.length; i++) {
-            toRet[i] = new Cell(arr[i].pos.x, arr[i].pos.y, arr[i].r, arr[i].color, arr[i].generation);
+            toRet[i] = new Cell(arr[i].p.x, arr[i].p.y, arr[i].r, arr[i].c, arr[i].g);
         }
         return toRet;
     }
@@ -165,13 +165,13 @@ class Cell {
         for (let i = 0; i < arr.length; i++) {
             //console.log(cells);
             if (cells[i]) {
-                cells[i].pos.x = arr[i].pos.x;
-                cells[i].pos.y = arr[i].pos.y;
+                cells[i].p.x = arr[i].pos.x;
+                cells[i].p.y = arr[i].pos.y;
                 cells[i].r = arr[i].r;
-                cells[i].color = arr[i].color;
-                cells[i].generation = arr[i].generation;
-                cells[i].speed.x = arr[i].speed.x;
-                cells[i].speed.y = arr[i].speed.y;
+                cells[i].c = arr[i].color;
+                cells[i].g = arr[i].generation;
+                cells[i].s.x = arr[i].speed.x;
+                cells[i].s.y = arr[i].speed.y;
             } else {
                 //console.log("CALLED");
                 cells[i] = new Cell(arr[i].pos.x, arr[i].pos.y, arr[i].r, arr[i].color, arr[i].generation);
