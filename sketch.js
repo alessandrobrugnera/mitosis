@@ -58,9 +58,11 @@ function setup() {
         peer.on('open', () => {
             conn = peer.connect(hostPeerId);
             conn.on('data', (dt) => {
-                Cell.updateArray(dt.cells, cells);
-                Food.updateArray(dt.foods, foods);
-                selectedTool = dt.selectedTool;
+                if (dt && dt.cells && dt.foods && dt.selectedTool) {
+                    Cell.updateArray(dt.cells, cells);
+                    Food.updateArray(dt.foods, foods);
+                    selectedTool = dt.selectedTool;
+                }
             });
         });
     }
