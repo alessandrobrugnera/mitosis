@@ -62,6 +62,8 @@ function setup() {
                     Cell.updateArray(dt.cells, cells);
                     Food.updateArray(dt.foods, foods);
                     selectedTool = dt.selectedTool;
+                } else {
+                    console.warn(dt);
                 }
             });
         });
