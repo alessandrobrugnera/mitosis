@@ -58,7 +58,11 @@ function setup() {
         peer.on('open', () => {
             conn = peer.connect(hostPeerId);
             conn.on('data', (dt) => {
-                dt = JSON.parse(dt);
+                try {
+                    dt = JSON.parse(dt);
+                } catch (e) {
+
+                }
                 if (dt && dt.cells && dt.foods && typeof dt.selectedTool !== 'undefined') {
                     Cell.updateArray(dt.cells, cells);
                     Food.updateArray(dt.foods, foods);
