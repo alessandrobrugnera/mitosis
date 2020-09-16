@@ -58,7 +58,7 @@ function setup() {
         peer.on('open', () => {
             conn = peer.connect(hostPeerId);
             conn.on('data', (dt) => {
-                if (dt && dt.cells && dt.foods && dt.selectedTool) {
+                if (dt && dt.cells && dt.foods && typeof dt.selectedTool !== 'undefined') {
                     Cell.updateArray(dt.cells, cells);
                     Food.updateArray(dt.foods, foods);
                     selectedTool = dt.selectedTool;
