@@ -1,4 +1,4 @@
-let peer = new peerjs.Peer();
+let peer = new peerjs.Peer({secure: true});
 const urlParams = new URLSearchParams(window.location.search);
 let conn = undefined;
 
