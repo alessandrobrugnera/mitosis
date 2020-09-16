@@ -45,11 +45,11 @@ function setup() {
             let tmpConnections = peer.connections;
             for (let connection in tmpConnections) {
                 if (tmpConnections[connection] && tmpConnections[connection][0]) {
-                    tmpConnections[connection][0].send({
+                    tmpConnections[connection][0].send(JSON.stringify({
                         cells: Cell.serializeArray(cells),
                         foods: Food.serializeArray(foods),
                         selectedTool: selectedTool
-                    });
+                    }));
                 }
             }
         }, 200);
@@ -58,6 +58,7 @@ function setup() {
         peer.on('open', () => {
             conn = peer.connect(hostPeerId);
             conn.on('data', (dt) => {
+                dt = JSON.parse(dt);
                 if (dt && dt.cells && dt.foods && typeof dt.selectedTool !== 'undefined') {
                     Cell.updateArray(dt.cells, cells);
                     Food.updateArray(dt.foods, foods);
